@@ -28,7 +28,7 @@ export class CoffeesController {
   @Get(':id')
   findOne(@Param('id') id: number) {
     // console.log(typeof id);
-    const coffee = this.CoffeesService.findOne('' + id);
+    const coffee = this.CoffeesService.findOne(id);
     if (!coffee) {
       throw new NotFoundException(`Coffee #${id} not found`);
     }
@@ -37,18 +37,18 @@ export class CoffeesController {
 
   @Post()
   @HttpCode(HttpStatus.GONE)
-  create(@Body() createCoffeeDto: CreateCoffeeDto) {
+  create(@Body() createCoffeeDto: CreateCoffeeDto | CreateCoffeeDto[]) {
     // console.log(createCoffeeDto instanceof CreateCoffeeDto);
     return this.CoffeesService.create(createCoffeeDto);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateCoffeeDto: UpdateCoffeeDto) {
+  update(@Param('id') id: number, @Body() updateCoffeeDto: UpdateCoffeeDto) {
     return this.CoffeesService.update(id, updateCoffeeDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  remove(@Param('id') id: number) {
     return this.CoffeesService.remove(id);
   }
 }
