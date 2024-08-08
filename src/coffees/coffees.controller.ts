@@ -14,14 +14,13 @@ import {
 } from '@nestjs/common';
 import { CreateCoffeeDto } from './dto/create-coffee.dto';
 import { UpdateCoffeeDto } from './dto/update-coffee.dto';
-import { isInstance } from 'class-validator';
 
 @Controller('coffees')
 export class CoffeesController {
   constructor(private readonly CoffeesService: CoffeesService) {}
+
   @Get()
   findAll(@Query() paginationQuery) {
-    // const { limit, offset } = paginationQuery;
     return this.CoffeesService.findAll();
   }
 
@@ -37,7 +36,7 @@ export class CoffeesController {
 
   @Post()
   @HttpCode(HttpStatus.GONE)
-  create(@Body() createCoffeeDto: CreateCoffeeDto | CreateCoffeeDto[]) {
+  create(@Body() createCoffeeDto: CreateCoffeeDto) {
     // console.log(createCoffeeDto instanceof CreateCoffeeDto);
     return this.CoffeesService.create(createCoffeeDto);
   }
